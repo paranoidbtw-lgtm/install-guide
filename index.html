@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Installation Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a2e;
+    --fg-muted: #5a5a72;
+    --surface: #f4f5f7;
+    --border: #e2e4e9;
+    --accent: #6366f1;
+    --accent-soft: #eef2ff;
+    --step-line: #d1d5db;
+    --code-bg: #f1f3f5;
+    --callout-bg: #fffbeb;
+    --callout-border: #f59e0b;
+    --callout-fg: #92400e;
+    --warn-bg: #fef2f2;
+    --warn-border: #ef4444;
+    --warn-fg: #991b1b;
+    --key-bg: #f3f4f6;
+    --key-border: #d1d5db;
+    --key-shadow: #b0b3b8;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f0f1a;
+      --fg: #e4e4ed;
+      --fg-muted: #9090a8;
+      --surface: #1a1a2e;
+      --border: #2a2a40;
+      --accent: #818cf8;
+      --accent-soft: #1e1b4b;
+      --step-line: #3a3a52;
+      --code-bg: #1e1e30;
+      --callout-bg: #1c1a0e;
+      --callout-border: #b45309;
+      --callout-fg: #fbbf24;
+      --warn-bg: #1c0e0e;
+      --warn-border: #b91c1c;
+      --warn-fg: #fca5a5;
+      --key-bg: #1e1e30;
+      --key-border: #3a3a52;
+      --key-shadow: #0a0a14;
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0f0f1a;
+    --fg: #e4e4ed;
+    --fg-muted: #9090a8;
+    --surface: #1a1a2e;
+    --border: #2a2a40;
+    --accent: #818cf8;
+    --accent-soft: #1e1b4b;
+    --step-line: #3a3a52;
+    --code-bg: #1e1e30;
+    --callout-bg: #1c1a0e;
+    --callout-border: #b45309;
+    --callout-fg: #fbbf24;
+    --warn-bg: #1c0e0e;
+    --warn-border: #b91c1c;
+    --warn-fg: #fca5a5;
+    --key-bg: #1e1e30;
+    --key-border: #3a3a52;
+    --key-shadow: #0a0a14;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-body);
+    line-height: 1.7;
+    padding-inline: 24px;
+    padding-block: 0;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 2.5rem 0 0.5rem;
+    text-wrap: balance;
+  }
+
+  .lead {
+    color: var(--fg-muted);
+    font-size: 1.05rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    text-decoration: none;
+    margin: 0.25rem 0 2rem;
+    transition: background 0.15s, transform 0.1s;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  }
+
+  .download-btn:hover {
+    background: #4f46e5;
+  }
+
+  .download-btn:active {
+    transform: translateY(1px);
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 0 0 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem;
+  }
+
+  h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    line-height: 1.55;
+  }
+
+  .checklist li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background: var(--surface);
+  }
+
+  .callout {
+    border-left: 3px solid var(--callout-border);
+    background: var(--callout-bg);
+    color: var(--callout-fg);
+    padding: 0.85rem 1rem;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    margin: 1rem 0;
+  }
+
+  .callout strong {
+    display: block;
+    margin-bottom: 0.15rem;
+  }
+
+  .callout-warn {
+    border-left-color: var(--warn-border);
+    background: var(--warn-bg);
+    color: var(--warn-fg);
+  }
+
+  .stepper {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 0 1rem;
+    padding-bottom: 2rem;
+    position: relative;
+  }
+
+  .step:last-child { padding-bottom: 0; }
+
+  .step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+
+  .step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-line {
+    position: absolute;
+    top: 32px;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: var(--step-line);
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-content {
+    padding-top: 4px;
+  }
+
+  .step-content h3 { margin: 0 0 0.4rem; }
+
+  .step-content p {
+    margin: 0 0 0.5rem;
+    color: var(--fg-muted);
+    font-size: 0.95rem;
+  }
+
+  .step-content ol {
+    margin: 0.25rem 0 0;
+    padding-left: 1.25rem;
+    color: var(--fg);
+    font-size: 0.95rem;
+  }
+
+  .step-content ol li {
+    margin-bottom: 0.25rem;
+    padding-left: 0.25rem;
+  }
+
+  .key-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.75rem 0 0;
+    font-size: 0.9rem;
+  }
+
+  .key-table th {
+    text-align: left;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 2px solid var(--border);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--fg-muted);
+  }
+
+  .key-table td {
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  kbd {
+    display: inline-block;
+    padding: 2px 7px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    background: var(--key-bg);
+    border: 1px solid var(--key-border);
+    border-radius: 4px;
+    box-shadow: 0 1px 0 var(--key-shadow);
+    line-height: 1.4;
+  }
+
+  .overlay-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 560px) {
+    .overlay-grid { grid-template-columns: 1fr; }
+  }
+
+  .overlay-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+
+  .overlay-card h4 {
+    margin: 0 0 0.15rem;
+    font-size: 0.95rem;
+  }
+
+  .overlay-card .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-bottom: 0.75rem;
+  }
+
+  .overlay-card ol {
+    margin: 0;
+    padding-left: 1.15rem;
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+  }
+
+  .overlay-card ol li { margin-bottom: 0.2rem; }
+
+  details {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin: 1rem 0;
+    overflow: hidden;
+  }
+
+  details summary {
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+
+  details summary::before {
+    content: '\25B8';
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details summary:hover { background: var(--border); }
+
+  details .trouble-body { padding: 0 1.25rem 1.25rem; }
+
+  .trouble-item {
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+
+  .trouble-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .trouble-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    color: var(--fg);
+  }
+
+  .trouble-item .error-msg {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: var(--code-bg);
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    margin: 0.4rem 0 0.6rem;
+    line-height: 1.5;
+    overflow-x: auto;
+  }
+
+  .trouble-item .causes {
+    color: var(--fg-muted);
+    font-size: 0.9rem;
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .trouble-item ol, .trouble-item ul {
+    padding-left: 1.2rem;
+    font-size: 0.9rem;
+    margin: 0.35rem 0 0;
+    color: var(--fg);
+  }
+
+  .trouble-item ol li, .trouble-item ul li {
+    margin-bottom: 0.3rem;
+    line-height: 1.5;
+  }
+
+  .trouble-item .sub-section { margin-top: 0.75rem; }
+
+  .trouble-item .sub-section strong {
+    display: block;
+    font-size: 0.88rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .trouble-item .sub-section p {
+    margin: 0.1rem 0;
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+  }
+
+  pre.code-block {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    background: var(--code-bg);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 0.6rem 0;
+    line-height: 1.6;
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--code-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .support-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .support-box ul {
+    margin: 0.75rem 0 0;
+    padding-left: 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  .support-box ul li {
+    margin-bottom: 0.35rem;
+    line-height: 1.5;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--fg-muted);
+    font-size: 0.82rem;
+    margin: 2.5rem 0 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<h1>Installation Guide</h1>
+<p class="lead">Follow this guide to install the loader, configure your system, and troubleshoot common issues.</p>
+
+<a href="https://undetect.net/download/loader" class="download-btn">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  Download Loader
+</a>
+
+<hr>
+
+<h2>Prerequisites</h2>
+
+<ul class="checklist">
+  <li>Install the required <strong>Microsoft Visual C++ Redistributable</strong></li>
+  <li>Restart your PC after installation</li>
+  <li>Disable <strong>Intel Rapid Storage Technology</strong> (RST) in BIOS, if required</li>
+  <li>Disable <strong>Secure Boot</strong>, if required by your product</li>
+  <li>Confirm virtualization settings match the loader's requirements</li>
+  <li>Read all instructions before launching the loader</li>
+</ul>
+
+<div class="callout">
+  <strong>Note</strong>
+  BIOS settings vary by motherboard and processor. Only change settings you understand, and follow the product's official requirements.
+</div>
+
+<hr>
+
+<h2>Installation</h2>
+
+<div class="stepper">
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">1</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-content">
+      <h3>Download the Loader</h3>
+      <p>Download the loader using the link provided on your product page.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">2</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-content">
+      <h3>Run the Loader</h3>
+      <ol>
+        <li>Locate the downloaded file</li>
+        <li>Right-click the file</li>
+        <li>Select <strong>Run as administrator</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">3</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-content">
+      <h3>Update the Loader</h3>
+      <ol>
+        <li>Allow the loader to check for updates</li>
+        <li>Wait for the update process to finish</li>
+        <li>If prompted, close and reopen the loader</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">4</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-content">
+      <h3>Enter Your License Key</h3>
+      <ol>
+        <li>Enter your license key in the designated field</li>
+        <li>Press <strong>Enter</strong> to continue</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">5</div>
+      <div class="step-line"></div>
+    </div>
+    <div class="step-content">
+      <h3>Launch the Game</h3>
+      <ol>
+        <li>Follow the loader's on-screen instructions</li>
+        <li>Wait for initialization to complete</li>
+        <li>Launch your game if instructed</li>
+        <li>Avoid switching windows during initialization</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-indicator">
+      <div class="step-number">6</div>
+    </div>
+    <div class="step-content">
+      <h3>Open the Menu</h3>
+      <p>Wait approximately 1–2 minutes for initialization, then use the hotkeys below.</p>
+      <table class="key-table">
+        <thead>
+          <tr><th>Key</th><th>Function</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>HOME</kbd> <span style="color:var(--fg-muted);margin:0 0.15rem">/</span> <kbd>INSERT</kbd></td>
+            <td>Open or close the menu</td>
+          </tr>
+          <tr>
+            <td><kbd>END</kbd></td>
+            <td>Unload the software</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<hr>
+
+<h2>Overlay Setup</h2>
+<p style="color: var(--fg-muted); font-size: 0.95rem; margin: 0 0 0.75rem;">An overlay may be required for the menu to display correctly. Choose one of the options below.</p>
+
+<div class="overlay-grid">
+  <div class="overlay-card">
+    <span class="badge">Recommended</span>
+    <h4>Discord Overlay</h4>
+    <ol>
+      <li>Open Discord <strong>Settings</strong></li>
+      <li>Enable <strong>Game Overlay</strong></li>
+      <li>Disable <strong>Legacy Overlay</strong>, if available</li>
+      <li>Enable <strong>Hardware Acceleration</strong> if required</li>
+      <li>Confirm the overlay is enabled for your game</li>
+    </ol>
+  </div>
+  <div class="overlay-card">
+    <h4>Medal TV</h4>
+    <ol>
+      <li>Download and install <strong>Medal</strong></li>
+      <li>Sign in to your account</li>
+      <li>Enable the Medal overlay</li>
+      <li>Confirm the overlay is enabled for your game</li>
+    </ol>
+  </div>
+</div>
+
+<hr>
+
+<h2>Troubleshooting</h2>
+
+<details>
+  <summary>&#x1F527; Troubleshooting — Common Errors</summary>
+  <div class="trouble-body">
+
+    <div class="trouble-item">
+      <h4>PIN / Hyper-V Error</h4>
+      <div class="error-msg">Please make sure PIN is not set and manually disable Hyper-V.</div>
+      <ol>
+        <li>Check the product's official compatibility instructions</li>
+        <li>Review your <strong>Windows Security</strong>, <strong>Windows Hello PIN</strong>, and <strong>Hyper-V</strong> configuration</li>
+        <li>Restart your PC after making any configuration changes</li>
+        <li>Do not delete or modify Windows hypervisor system files manually</li>
+        <li>If the error persists, contact support with your Windows version and loader version</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Failed to Map Memory</h4>
+      <p class="causes"><strong>Possible causes:</strong> insufficient RAM, conflicting startup applications, or incompatible system configuration.</p>
+      <ol>
+        <li>Check the product's minimum RAM requirements</li>
+        <li>Restart your PC</li>
+        <li>Close unnecessary applications</li>
+        <li>If support recommends <strong>Microsoft Sysinternals Autoruns</strong>, use it to identify conflicting startup apps — do not disable entries indiscriminately</li>
+        <li>If the issue persists, collect the error message and contact support</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Loader Closes Without an Error</h4>
+      <p class="causes"><strong>Possible causes:</strong> missing software dependencies, incomplete installation, or a compatibility issue.</p>
+      <ol>
+        <li>Install the required dependencies listed in the official product documentation</li>
+        <li>Restart your PC</li>
+        <li>Run the loader again</li>
+        <li>If the issue continues, send support the loader version and any available logs</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Menu Is Visible but Not Clickable</h4>
+      <ol>
+        <li>Confirm the overlay is enabled for the correct game</li>
+        <li>Check the overlay's documented permission requirements</li>
+        <li>Close other overlays that may conflict</li>
+        <li>Restart the game and the overlay</li>
+        <li>If the issue persists, contact support</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Windows Antivirus Errors</h4>
+      <p class="causes">Security software may flag unfamiliar executables. An alert does not automatically mean the file is safe or unsafe.</p>
+      <ol>
+        <li>Verify the download came from the official source</li>
+        <li>Check the file's digital signature and scan results</li>
+        <li>Review the antivirus detection name and submit a false-positive report if appropriate</li>
+        <li>Contact support if the file is blocked</li>
+        <li>Do not disable <strong>Windows Defender</strong> or <strong>SmartScreen</strong> globally to bypass an alert</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>AES Instruction Set Not Supported</h4>
+      <p class="causes">Your processor does not support a required AES instruction set.</p>
+      <ol>
+        <li>Check your processor model against the product's minimum CPU requirements</li>
+        <li>Confirm the error with support</li>
+        <li>If your hardware is unsupported, ask about refund eligibility</li>
+      </ol>
+      <div class="callout" style="margin-top: 0.75rem;">
+        <strong>Note</strong>
+        A software update cannot add CPU instructions the processor does not physically support.
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <h4>BIOS Configuration Errors</h4>
+      <div class="sub-section">
+        <strong>Intel Virtualization</strong>
+        <p>Look for <strong>Intel Virtualization Technology (VT-x)</strong> in your BIOS.</p>
+      </div>
+      <div class="sub-section">
+        <strong>AMD Virtualization</strong>
+        <p>Look for <strong>SVM Mode</strong> or <strong>AMD-V</strong> in your BIOS.</p>
+      </div>
+      <div class="sub-section">
+        <strong>Secure Boot</strong>
+        <p>Check the official product requirements before enabling or disabling Secure Boot.</p>
+      </div>
+      <div class="callout" style="margin-top: 0.75rem;">
+        <strong>Note</strong>
+        BIOS menu names vary by manufacturer. Consult your motherboard or PC manufacturer's documentation if you cannot find a setting.
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Unsupported Firmware</h4>
+      <p class="causes">The current boot configuration or disk partition format may be unsupported.</p>
+      <ol>
+        <li>Check whether your Windows system disk uses <strong>MBR</strong> or <strong>GPT</strong></li>
+        <li>Back up important files</li>
+        <li>Review Microsoft's official documentation for the <code>MBR2GPT</code> tool</li>
+        <li>Verify your system meets the required UEFI boot configuration before converting</li>
+      </ol>
+      <div class="callout callout-warn" style="margin-top: 0.75rem;">
+        <strong>Warning</strong>
+        Do not convert your system disk without a backup and a clear understanding of the recovery process.
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Secure Boot Keys Incorrect</h4>
+      <p class="causes">A Secure Boot configuration or key issue.</p>
+      <ol>
+        <li>Check your motherboard manufacturer's Secure Boot documentation</li>
+        <li>Verify the current Secure Boot configuration</li>
+        <li>Follow the manufacturer's recovery instructions if the keys are incorrect</li>
+        <li>Contact support if the error continues</li>
+      </ol>
+      <div class="callout callout-warn" style="margin-top: 0.75rem;">
+        <strong>Warning</strong>
+        Changing Secure Boot keys or restoring factory keys can affect your boot configuration. Do not reset them without confirming the correct procedure for your device.
+      </div>
+    </div>
+
+    <div class="trouble-item">
+      <h4>VMX / SVM Not Supported</h4>
+      <p class="causes">A virtualization configuration or compatibility issue.</p>
+      <ol>
+        <li>Check whether your CPU supports <strong>Intel VT-x</strong> or <strong>AMD-V</strong></li>
+        <li>Review the product's official Windows virtualization requirements</li>
+        <li>Check whether <strong>Hyper-V</strong> or <strong>Virtual Machine Platform</strong> is conflicting</li>
+        <li>Restart your PC after any configuration changes</li>
+        <li>If the error persists, provide support with the exact error message and your Windows version</li>
+      </ol>
+    </div>
+
+    <div class="trouble-item">
+      <h4>Incorrect HWID</h4>
+      <p class="causes">May result from a hardware change, identification issue, or licensing configuration problem.</p>
+      <p style="font-size: 0.9rem; margin: 0.4rem 0;">To collect hardware information, open <strong>Command Prompt</strong> and run:</p>
+      <pre class="code-block">wmic diskdrive get Caption, SerialNumber
+wmic baseboard get SerialNumber</pre>
+      <p style="font-size: 0.9rem; color: var(--fg-muted); margin: 0.4rem 0 0;">If <code>wmic</code> is unavailable, use Windows System Information or PowerShell. Share the results privately with official support.</p>
+      <div class="callout" style="margin-top: 0.75rem;">
+        <strong>Note</strong>
+        Do not reinstall Windows solely because these commands fail. Reinstallation is unlikely to fix a simple command or licensing error.
+      </div>
+    </div>
+
+  </div>
+</details>
+
+<hr>
+
+<h2>Still Need Help?</h2>
+
+<div class="support-box">
+  <p style="margin: 0; font-size: 0.95rem;">If you are still experiencing issues, open a <strong>support ticket</strong> and include:</p>
+  <ul>
+    <li>Your exact error message</li>
+    <li>Your Windows version</li>
+    <li>Your CPU model</li>
+    <li>Troubleshooting steps you've already tried</li>
+    <li>Screenshots or logs, if available</li>
+  </ul>
+  <p style="margin: 0.75rem 0 0; font-size: 0.9rem; color: var(--fg-muted);">Providing these details helps the support team diagnose the problem faster.</p>
+</div>
+
+<p class="footer-note">Please read all instructions carefully before making system or BIOS changes.</p>
+
+</body>
+</html>
